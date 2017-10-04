@@ -29,7 +29,7 @@ var getJSON = function (inputStr){
        $("ul").empty();
        $.map(filtered, function(n, i){
          var li = $('<li></li>');
-         var carImage = $('<img>').attr({'src': n.image, 'height': 130, 'alt': 'Photo of '+n.name});
+         var carImage = $('<img>').attr({'src': n.image, 'height': 130, 'alt': 'Photo of '+n.description});
          var carName = $('<h4></h4>').html(n.name);
          $(li).append(carImage, carName);
          $("ul").append(li);
