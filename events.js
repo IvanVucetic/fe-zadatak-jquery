@@ -4,14 +4,6 @@ $( ".searchField-input" ).keyup(function() {
 });
 
 
-// function renderCar(car) {
-//   var li = document.createElement('li');
-//   li.innerHTML = '<h4>' + car.name + '</h4>';
-//   var ul = document.querySelector('ul');
-//   ul.appendChild(li);
-// }
-
-
 var getJSON = function (inputStr){
   $.ajax({
      url: "data.json",
@@ -27,6 +19,7 @@ var getJSON = function (inputStr){
          filtered = cars;
        } else {
          filtered = $.grep(cars, function(car, i){
+          //  caps sensitive
            return car.name.search(inputStr) > -1;
          });
        }
@@ -35,7 +28,11 @@ var getJSON = function (inputStr){
 
        $("ul").empty();
        $.map(filtered, function(n, i){
-         $( "ul" ).append( "<li>" + n.name + "</li>" );
+         var li = $('<li></li>');
+         var carImage = $('<img>').attr({'src': n.image, 'height': 130, 'alt': 'Photo of '+n.name});
+         var carName = $('<h4></h4>').html(n.name);
+         $(li).append(carImage, carName);
+         $("ul").append(li);
        });
      }
    });
