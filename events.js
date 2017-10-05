@@ -1,6 +1,6 @@
 $( ".searchField-input" ).keyup(function() {
   var input = $(this);
-  getJSON(input.val());
+  getJSON(input.val().trim());
 });
 
 
