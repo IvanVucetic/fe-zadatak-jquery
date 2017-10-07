@@ -5,13 +5,14 @@ $( ".searchField-input" ).keyup(function() {
 
 
 $(document).on("click", '.car', function(event) {
-    nizZaTrku.push($(this).data("id"));
+    // nizZaTrku.push($(this).data("id")); // <-- moze vise puta isti auto, srediti
     // unutar ovoga poziv da smestimo ogranicenja u globalni niz
     // ovde iscrtavam staze (za svaki auto)
     // svaki put kad se odabere auto, dodaje se traka za njega, brisu se ogranicenja i iznova iscrtavaju
+
 });
 
-var nizZaTrku = []; //KORISTITI DICT UMESTO ARRAYA? id:speed ili id:[speed, stanjeprikaza]
+var nizZaTrku = {}; //KORISTITI DICT UMESTO ARRAYA? id:speed ili id:[speed, stanjeprikaza]
 
 
 var getJSON = function (inputStr){
@@ -34,14 +35,13 @@ var getJSON = function (inputStr){
          });
        }
 
-       console.log(filtered);
-
        $("ul").empty();
        $.map(filtered, function(n, i){
          var carImage = $('<img>').attr({'src': n.image, 'height': 130, 'alt': 'Photo of '+n.description});
          var li = $('<li class="car" data-id="'+n.id+'"></li>');
          var carName = $('<h4></h4>').html(n.name);
-         $(li).append(carImage, carName);
+         var buttonErase = $('<button class="deleteCar" value="Obrisi">Obrisi</button>');
+         $(li).append(carImage, carName, buttonErase);
          $("ul").append(li);
        });
      }
