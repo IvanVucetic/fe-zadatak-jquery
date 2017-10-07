@@ -4,3 +4,17 @@ li {
   margin: 0 12px 14px 0;
 	padding: 25px;
 }
+
+.raceTracks {
+  width: 100px;
+  height: 30px;
+  background-color: gray;
+  position: relative;
+}
+
+.speedLimit {
+  position: absolute;
+  left: 50px;
+  display: inline-block;
+  width: 5px;
+}
