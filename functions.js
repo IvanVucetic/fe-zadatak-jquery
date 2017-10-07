@@ -1,3 +1,4 @@
-function clickedCar(carID) {
-  nizZaTrku.push(carID);
-}
+// function clickedCar(carID) {    <--- ternutno nije potrebno
+//   nizZaTrku.push(carID);
+//   console.log(nizZaTrku);
+// }
