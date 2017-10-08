@@ -41,7 +41,7 @@ $(document).on("click", '.car', function(event) {
 
 });
 
-var nizZaTrku = []; 
+var nizZaTrku = [];
 
 
 var getJSON = function (inputStr){
@@ -75,5 +75,14 @@ var getJSON = function (inputStr){
      }
    });
 };
+
+//testing animation
+// $(document).on("click", '.racer', function() {
+//   $(this).animate({
+//       left: 1000
+//   }, 5000, "linear", function (){
+//
+//   })
+// });
 
 getJSON("");

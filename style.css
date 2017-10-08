@@ -35,4 +35,5 @@ li {
   width: 50px;
   background-color: blue;
   position: relative;
+  z-index: 1;
 }
