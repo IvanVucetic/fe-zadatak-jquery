@@ -10,16 +10,14 @@ $(document).on("click", '.car', function(event) {
     // ovde iscrtavam staze (za svaki auto)
     // svaki put kad se odabere auto, dodaje se traka za njega, brisu se ogranicenja i iznova iscrtavaju
 
-    // if (auto vec u nizZaTrku) {
-    //  proveri da li je to jedini auto u nizu;
-    //  ako jeste, obrisi ogranicenja;
-    //  obrisi traku tog auta (svakako);
-    //  izbrisi objekat iz nizZaTrku;
-    //  vrati my normalan izgled;
-    // } else (nema auta, crtamo ga) {
     var carid = $(this).data("id");
     if (alreadyAdded(carid, nizZaTrku)) {
       alert("already added");
+      //  proveri da li je to jedini auto u nizu;
+      //  ako jeste, obrisi ogranicenja;
+      //  obrisi traku tog auta (svakako);
+      //  izbrisi objekat iz nizZaTrku;
+      //  vrati my normalan izgled;
     } else {
       var tempCar = {};
       tempCar["id"] = carid;
