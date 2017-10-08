@@ -11,14 +11,13 @@ $(document).on("click", '.car', function(event) {
 
     var carid = $(this).data("id");
     if (alreadyAdded(carid, nizZaTrku)) {
-      alert("already added");
       //  proveri da li je to jedini auto u nizu;
       //  ako jeste, obrisi ogranicenja;
+      // svakako obisi iz nizZaTrku i ukloni stazu
       if (nizZaTrku.length == 1) {
-        nizZaTrku.pop();
-        //  obrisi traku tog auta (svakako);
-        //  izbrisi objekat iz nizZaTrku;
-        //  vrati my normalan izgled;
+        azuriranjeStaze(carid, 0, 1);
+      } else {
+        azuriranjeStaze(carid, 0, 0)
       }
 
     } else {
@@ -33,11 +32,11 @@ $(document).on("click", '.car', function(event) {
           tempCar["speed"] = jsonData.cars[tempCar["id"]-1]["speed"];
           // ovde jos treba da se iscrta traka za ovaj auto + ogranicenja
           //testing drawing of elements
-          azuriranjeStaze(1, 1, 0);
+          azuriranjeStaze(tempCar["id"], 1, 0);
         }
       });
       nizZaTrku.push(tempCar);
-      console.log(nizZaTrku);
+      // console.log(nizZaTrku);
     }
 
 

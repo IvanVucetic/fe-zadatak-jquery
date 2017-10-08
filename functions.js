@@ -17,9 +17,10 @@ function azuriranjeStaze(carid, iscrtavanje, ogranicenja) {
   if (iscrtavanje) {
     //iscraj traku za auto
     //iscrtaj distance + dodaj labele
-    var singleRace = $('<div>').attr({'class': 'singleRace'});
+    var singleRace = $('<div>').attr({'class': 'singleRace', 'data-carID': carid});
     var singleTrack = $('<div>').attr({'class': 'singleTrack'});
-    var racer = $('<div>').attr({'class': 'racer', 'id': carid});  //dodati speed ovde ili vuci kasnije?
+    var racer = $('<div>').attr({'class': 'racer', 'id': carid});
+    racer.html(carid);  // this will be replaced with image
     var distance = $('<div>').attr({'class': 'distance'}).append(
                       $('<div>').attr({'class': 'label'}));
     for (var i = 1; i<10; i++) {
@@ -33,7 +34,8 @@ function azuriranjeStaze(carid, iscrtavanje, ogranicenja) {
       //iscrtaj ogranicenja
     }
   } else {
-    //obrisi traku za auto
+    var carToRemove = '[data-carID='+carid+']';
+    $('.raceTracks').remove($(carToRemove));
     if (ogranicenja) {
       //obrisi ogranicenja
     }
