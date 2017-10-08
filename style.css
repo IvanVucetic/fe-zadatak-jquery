@@ -6,15 +6,32 @@ li {
 }
 
 .raceTracks {
-  width: 100px;
-  height: 30px;
-  background-color: gray;
   position: relative;
 }
+
+.singleTrack {
+  display: inline-block;
+  width: 1000px;
+  height: 50px;
+  background-color: silver;
+  margin-top: 25px;
+  position: relative;
+  border-right: dashed 3px white;
+  box-sizing: border-box;
+}
+
+
 
 .speedLimit {
   position: absolute;
   left: 50px;
   display: inline-block;
   width: 5px;
+}
+
+.racer {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  background-color: blue;
 }
