@@ -20,7 +20,28 @@ li {
   box-sizing: border-box;
 }
 
+.distance {
+  color: red;
+  position: absolute;
+  height: 50px;
+  border-right: 1px solid red;
+}
 
+.label {
+  height: 20px;
+  width: 40px;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  background-color: yellow;
+  border: 0.5px solid black;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#markOne {
+  left: 100px;
+}
 
 .speedLimit {
   position: absolute;
