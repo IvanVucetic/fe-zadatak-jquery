@@ -66,8 +66,7 @@ var getJSON = function (inputStr){
          var carImage = $('<img>').attr({'src': n.image, 'height': 130, 'alt': 'Photo of '+n.description});
          var li = $('<li class="car" data-id="'+n.id+'"></li>');
          var carName = $('<h4></h4>').html(n.name);
-         var buttonErase = $('<button class="deleteCar" value="Obrisi">Obrisi</button>');
-         $(li).append(carImage, carName, buttonErase);
+         $(li).append(carImage, carName);
          $("ul").append(li);
        });
      }
