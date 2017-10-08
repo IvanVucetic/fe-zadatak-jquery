@@ -16,8 +16,19 @@ function alreadyAdded(carID, nzt) {
 function azuriranjeStaze(carid, iscrtavanje, ogranicenja) {
   if (iscrtavanje) {
     //iscraj traku za auto
-    var singleTrack = $('<div').attr({'class': 'singleTrack'});
+    //iscrtaj distance + dodaj labele
+    var singleRace = $('<div>').attr({'class': 'singleRace'});
+    var singleTrack = $('<div>').attr({'class': 'singleTrack'});
     var racer = $('<div>').attr({'class': 'racer', 'id': carid});  //dodati speed ovde ili vuci kasnije?
+    var distance = $('<div>').attr({'class': 'distance'}).append(
+                      $('<div>').attr({'class': 'label'}));
+    for (var i = 1; i<10; i++) {
+      singleTrack.append(distance);
+      // dodaj i*100 za left i za label
+    }
+    singleRace.append(racer, singleTrack);
+    $(".raceTracks").prepend(singleRace);
+
     if (ogranicenja) {
       //iscrtaj ogranicenja
     }

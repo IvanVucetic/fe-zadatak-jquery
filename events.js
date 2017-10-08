@@ -32,6 +32,8 @@ $(document).on("click", '.car', function(event) {
         success: function (jsonData) {
           tempCar["speed"] = jsonData.cars[tempCar["id"]-1]["speed"];
           // ovde jos treba da se iscrta traka za ovaj auto + ogranicenja
+          //testing drawing of elements
+          azuriranjeStaze(1, 1, 0);
         }
       });
       nizZaTrku.push(tempCar);
@@ -84,5 +86,6 @@ var getJSON = function (inputStr){
 //
 //   })
 // });
+
 
 getJSON("");
