@@ -5,7 +5,6 @@ $( ".searchField-input" ).keyup(function() {
 
 
 $(document).on("click", '.car', function(event) {
-    // nizZaTrku.push($(this).data("id")); // <-- moze vise puta isti auto, srediti
     // unutar ovoga poziv da smestimo ogranicenja u globalni niz
     // ovde iscrtavam staze (za svaki auto)
     // svaki put kad se odabere auto, dodaje se traka za njega, brisu se ogranicenja i iznova iscrtavaju
@@ -15,9 +14,13 @@ $(document).on("click", '.car', function(event) {
       alert("already added");
       //  proveri da li je to jedini auto u nizu;
       //  ako jeste, obrisi ogranicenja;
-      //  obrisi traku tog auta (svakako);
-      //  izbrisi objekat iz nizZaTrku;
-      //  vrati my normalan izgled;
+      if (nizZaTrku.length == 1) {
+        nizZaTrku.pop();
+        //  obrisi traku tog auta (svakako);
+        //  izbrisi objekat iz nizZaTrku;
+        //  vrati my normalan izgled;
+      }
+
     } else {
       var tempCar = {};
       tempCar["id"] = carid;
@@ -38,7 +41,7 @@ $(document).on("click", '.car', function(event) {
 
 });
 
-var nizZaTrku = []; //KORISTITI DICT UMESTO ARRAYA? id:speed ili id:[speed, stanjeprikaza]
+var nizZaTrku = []; 
 
 
 var getJSON = function (inputStr){
