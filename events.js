@@ -10,9 +10,37 @@ $(document).on("click", '.car', function(event) {
     // ovde iscrtavam staze (za svaki auto)
     // svaki put kad se odabere auto, dodaje se traka za njega, brisu se ogranicenja i iznova iscrtavaju
 
+    // if (auto vec u nizZaTrku) {
+    //  proveri da li je to jedini auto u nizu;
+    //  ako jeste, obrisi ogranicenja;
+    //  obrisi traku tog auta (svakako);
+    //  izbrisi objekat iz nizZaTrku;
+    //  vrati my normalan izgled;
+    // } else (nema auta, crtamo ga) {
+    var carid = $(this).data("id");
+    if (alreadyAdded(carid, nizZaTrku)) {
+      alert("already added");
+    } else {
+      var tempCar = {};
+      tempCar["id"] = carid;
+      // promeniti izgled elementa (prevrnuti ga)
+      $.ajax({
+        url: "data.json",
+        dataType: "json",
+        method: "GET",
+        success: function (jsonData) {
+          tempCar["speed"] = jsonData.cars[tempCar["id"]-1]["speed"];
+          // ovde jos treba da se iscrta traka za ovaj auto + ogranicenja
+        }
+      });
+      nizZaTrku.push(tempCar);
+      console.log(nizZaTrku);
+    }
+
+
 });
 
-var nizZaTrku = {}; //KORISTITI DICT UMESTO ARRAYA? id:speed ili id:[speed, stanjeprikaza]
+var nizZaTrku = []; //KORISTITI DICT UMESTO ARRAYA? id:speed ili id:[speed, stanjeprikaza]
 
 
 var getJSON = function (inputStr){
