@@ -18,6 +18,7 @@ li {
   position: relative;
   border-right: dashed 3px white;
   box-sizing: border-box;
+  vertical-align: bottom;
 }
 
 .distance {
