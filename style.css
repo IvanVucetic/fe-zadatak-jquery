@@ -58,4 +58,5 @@ li {
   background-color: blue;
   position: relative;
   z-index: 1;
+  color: white; /*temporaru*/
 }

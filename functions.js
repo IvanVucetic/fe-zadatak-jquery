@@ -13,19 +13,22 @@ function alreadyAdded(carID, nzt) {
   return exists;
 }
 
-function azuriranjeStaze(carid, iscrtavanje, ogranicenja) {
+// argumenti: carid- id auta, dist- duzina staze, iscrtavanje:0-brisanje/1-crtanje, ogranicenja:0-nema/1-ima
+function azuriranjeStaze(carid, dist, iscrtavanje, ogranicenja) {
+  // CRTANJE
   if (iscrtavanje) {
-    //iscraj traku za auto
-    //iscrtaj distance + dodaj labele
     var singleRace = $('<div>').attr({'class': 'singleRace', 'data-carID': carid});
     var singleTrack = $('<div>').attr({'class': 'singleTrack'});
     var racer = $('<div>').attr({'class': 'racer', 'id': carid});
     racer.html(carid);  // this will be replaced with image
     var distance = $('<div>').attr({'class': 'distance'}).append(
                       $('<div>').attr({'class': 'label'}));
+    // racunanje duzina deonica, oznacavanje
     for (var i = 1; i<10; i++) {
-      singleTrack.append(distance);
-      // dodaj i*100 za left i za label
+      var d = distance.clone();
+      d.find('div').html(i*dist/10);
+      d.css('left', i*'100');
+      singleTrack.append(d);
     }
     singleRace.append(racer, singleTrack);
     $(".raceTracks").prepend(singleRace);
@@ -33,11 +36,26 @@ function azuriranjeStaze(carid, iscrtavanje, ogranicenja) {
     if (ogranicenja) {
       //iscrtaj ogranicenja
     }
+  // BRISANJE
   } else {
-    var carToRemove = '[data-carID='+carid+']';
-    $('.raceTracks').remove($(carToRemove));
+    $('[data-carID='+carid+']').remove();
     if (ogranicenja) {
       //obrisi ogranicenja
     }
   }
+}
+
+
+
+
+
+
+
+
+
+function brisiAuto(niz, carID) {
+  niz = $.grep(niz, function(e){
+    return e.id != carID;
+  });
+  return niz;
 }

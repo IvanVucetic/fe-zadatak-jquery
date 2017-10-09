@@ -15,9 +15,13 @@ $(document).on("click", '.car', function(event) {
       //  ako jeste, obrisi ogranicenja;
       // svakako obisi iz nizZaTrku i ukloni stazu
       if (nizZaTrku.length == 1) {
-        azuriranjeStaze(carid, 0, 1);
+        azuriranjeStaze(carid, 0, 0, 1);
+        console.log(nizZaTrku);
+        nizZaTrku.pop();
       } else {
-        azuriranjeStaze(carid, 0, 0)
+        azuriranjeStaze(carid, 0, 0, 0);
+        nizZaTrku = brisiAuto(nizZaTrku, carid);
+        console.log(nizZaTrku);
       }
 
     } else {
@@ -31,8 +35,15 @@ $(document).on("click", '.car', function(event) {
         success: function (jsonData) {
           tempCar["speed"] = jsonData.cars[tempCar["id"]-1]["speed"];
           // ovde jos treba da se iscrta traka za ovaj auto + ogranicenja
+          if (nizZaTrku.length==0) {
+            azuriranjeStaze(tempCar["id"], jsonData.distance, 1, 1);  //treba ogranicenja
+            // ^^ treba i labele azurirati
+          } else {
+            azuriranjeStaze(tempCar["id"], jsonData.distance, 1, 0); //ne treba ogranicenja
+            // ^^ treba i labele azurirati
+          }
           //testing drawing of elements
-          azuriranjeStaze(tempCar["id"], 1, 0);
+          console.log(nizZaTrku);
         }
       });
       nizZaTrku.push(tempCar);
