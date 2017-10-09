@@ -1,9 +1,10 @@
+// SEARCH FUNCTIONALITY FOR CARS
 $( ".searchField-input" ).keyup(function() {
   var input = $(this);
   getJSON(input.val().trim());
 });
 
-
+// DRAW RACERS
 $(document).on("click", '.car', function(event) {
     // unutar ovoga poziv da smestimo ogranicenja u globalni niz
     // svaki put kad se odabere auto, dodaje se traka za njega, brisu se ogranicenja i iznova iscrtavaju
@@ -11,11 +12,17 @@ $(document).on("click", '.car', function(event) {
     var carid = $(this).data("id");
     //BRISANJE
     if (alreadyAdded(carid, nizZaTrku)) {
-      if (nizZaTrku.length == 1) {
-        //treba obrisati ogranicenja
-      }
       brisanjeStaze(carid);
       nizZaTrku = brisiAuto(nizZaTrku, carid);
+      // must make new call to update speed limits
+      $.ajax({
+        url: "data.json",
+        dataType: "json",
+        method: "GET",
+        success: function (jsonData) {
+          crtanjeOgranicenja(jsonData.speed_limits, jsonData.distance);
+        }
+      });
     //CRTANJE
     } else {
       var tempCar = {};
@@ -28,11 +35,8 @@ $(document).on("click", '.car', function(event) {
         success: function (jsonData) {
           tempCar["speed"] = jsonData.cars[tempCar["id"]-1]["speed"];
           crtanjeStaze(tempCar["id"], jsonData.distance);
-          if (nizZaTrku.length==1) {    //<-- trebalo bi 0, ali izgleda se push uradi pre nego sto ajax stigne
-            //treba nacrtati ogranicenja
-            crtanjeOgranicenja(jsonData.speed_limits, jsonData.distance);
-          }
-          //update height of speed limits -- nece trebati kad budemo brisali i iznova crtali ogranicenja svaki put
+          crtanjeOgranicenja(jsonData.speed_limits, jsonData.distance);
+          $(".raceTracks :not(:first-child) .singleTrack .distance .label").remove();
         }
       });
       nizZaTrku.push(tempCar);
@@ -41,9 +45,7 @@ $(document).on("click", '.car', function(event) {
 
 });
 
-var nizZaTrku = [];
-
-
+// GET CARS AND DRAW THEM ON PAGE
 var getJSON = function (inputStr){
   $.ajax({
      url: "data.json",
@@ -85,5 +87,6 @@ var getJSON = function (inputStr){
 //   })
 // });
 
+var nizZaTrku = [];
 
 getJSON("");

@@ -37,25 +37,29 @@ function brisanjeStaze(carid) {
 }
 
 //TODO:
-// function crtanjeOgranicenja() {}
-// function brisanjeOgranicenja() {}
 // function crtanjeSemafora() {}
 // function brisanjeSemafora() {}
 
 function crtanjeOgranicenja(limits, dist) {   //<-- doraditi sa labelima
-  //should delete limits first
+  brisanjeOgranicenja();
+
   var pxpkm = 1000/dist; //counts length of each km in pixels
   var limit = $('<div>').attr({'class': 'speedLimit'});
   limit.css("height", $('.raceTracks').css('height'));
   for (var i = 0; i < limits.length; i++) {
     var l = limit.clone();
     l.css("left", limits[i].position*pxpkm);
-    $(".singleTrack").append(l);
+    l.data('speed', limits[i].speed); // is there a better way to do this?
+    var limitLabel = $('<div>').attr({'class': 'speedLimitLabel'}).html(l.data("speed"));
+    l.append(limitLabel);
+    $(".raceTracks").children(".singleRace").first().children(".singleTrack").append(l);
   }
 }
 
 
-
+function brisanjeOgranicenja() {
+  $(".speedLimit").remove();
+}
 
 
 

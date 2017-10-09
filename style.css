@@ -43,10 +43,23 @@ li {
 .speedLimit {
   color: green;
   position: absolute;
-  border-right: 1px solid green;
+  border-right: 2px dashed green;
+  z-index: 1;
   /*left i height dodati jQ*/
 }
 
+.speedLimitLabel {
+  height: 20px;
+  width: 40px;
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background-color: gray;
+  border: 0.5px solid black;
+  box-sizing: border-box;
+  text-align: center;
+  color: white;
+}
 
 
 .racer {
@@ -55,6 +68,6 @@ li {
   width: 50px;
   background-color: blue;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   color: white; /*temporaru*/
 }
