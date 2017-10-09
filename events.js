@@ -10,20 +10,16 @@ $(document).on("click", '.car', function(event) {
     // svaki put kad se odabere auto, dodaje se traka za njega, brisu se ogranicenja i iznova iscrtavaju
 
     var carid = $(this).data("id");
+    //BRISANJE
     if (alreadyAdded(carid, nizZaTrku)) {
-      //  proveri da li je to jedini auto u nizu;
-      //  ako jeste, obrisi ogranicenja;
-      // svakako obisi iz nizZaTrku i ukloni stazu
-      if (nizZaTrku.length == 1) {
-        azuriranjeStaze(carid, 0, 0, 1);
-        console.log(nizZaTrku);
-        nizZaTrku.pop();
-      } else {
-        azuriranjeStaze(carid, 0, 0, 0);
-        nizZaTrku = brisiAuto(nizZaTrku, carid);
-        console.log(nizZaTrku);
+      if (nizZaTrku.length == 1) {      // <-- ovaj deo srediti jer se staza brise svakako, ne treba else
+        //treba obrisati ogranicenja
       }
+      brisanjeStaze(carid);
+      nizZaTrku = brisiAuto(nizZaTrku, carid);
 
+
+    //CRTANJE
     } else {
       var tempCar = {};
       tempCar["id"] = carid;
@@ -34,16 +30,10 @@ $(document).on("click", '.car', function(event) {
         method: "GET",
         success: function (jsonData) {
           tempCar["speed"] = jsonData.cars[tempCar["id"]-1]["speed"];
-          // ovde jos treba da se iscrta traka za ovaj auto + ogranicenja
           if (nizZaTrku.length==0) {
-            azuriranjeStaze(tempCar["id"], jsonData.distance, 1, 1);  //treba ogranicenja
-            // ^^ treba i labele azurirati
-          } else {
-            azuriranjeStaze(tempCar["id"], jsonData.distance, 1, 0); //ne treba ogranicenja
-            // ^^ treba i labele azurirati
+            //treba nacrtati ogranicenja
           }
-          //testing drawing of elements
-          console.log(nizZaTrku);
+          crtanjeStaze(tempCar["id"], jsonData.distance);
         }
       });
       nizZaTrku.push(tempCar);
