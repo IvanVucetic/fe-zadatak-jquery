@@ -4,3 +4,59 @@ li {
   margin: 0 12px 14px 0;
 	padding: 25px;
 }
+
+.raceTracks {
+  position: relative;
+}
+
+.singleTrack {
+  display: inline-block;
+  width: 1000px;
+  height: 50px;
+  background-color: silver;
+  margin-top: 25px;
+  position: relative;
+  border-right: dashed 3px white;
+  box-sizing: border-box;
+  vertical-align: bottom;
+}
+
+.distance {
+  color: red;
+  position: absolute;
+  height: 50px;
+  border-right: 1px solid red;
+}
+
+.label {
+  height: 20px;
+  width: 40px;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  background-color: yellow;
+  border: 0.5px solid black;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#markOne {
+  left: 100px;
+}
+
+.speedLimit {
+  position: absolute;
+  left: 50px;
+  display: inline-block;
+  width: 5px;
+}
+
+.racer {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  background-color: blue;
+  position: relative;
+  z-index: 1;
+  color: white; /*temporaru*/
+}
