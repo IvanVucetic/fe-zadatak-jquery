@@ -6,19 +6,16 @@ $( ".searchField-input" ).keyup(function() {
 
 $(document).on("click", '.car', function(event) {
     // unutar ovoga poziv da smestimo ogranicenja u globalni niz
-    // ovde iscrtavam staze (za svaki auto)
     // svaki put kad se odabere auto, dodaje se traka za njega, brisu se ogranicenja i iznova iscrtavaju
 
     var carid = $(this).data("id");
     //BRISANJE
     if (alreadyAdded(carid, nizZaTrku)) {
-      if (nizZaTrku.length == 1) {      // <-- ovaj deo srediti jer se staza brise svakako, ne treba else
+      if (nizZaTrku.length == 1) {
         //treba obrisati ogranicenja
       }
       brisanjeStaze(carid);
       nizZaTrku = brisiAuto(nizZaTrku, carid);
-
-
     //CRTANJE
     } else {
       var tempCar = {};
@@ -30,14 +27,15 @@ $(document).on("click", '.car', function(event) {
         method: "GET",
         success: function (jsonData) {
           tempCar["speed"] = jsonData.cars[tempCar["id"]-1]["speed"];
-          if (nizZaTrku.length==0) {
-            //treba nacrtati ogranicenja
-          }
           crtanjeStaze(tempCar["id"], jsonData.distance);
+          if (nizZaTrku.length==1) {    //<-- trebalo bi 0, ali izgleda se push uradi pre nego sto ajax stigne
+            //treba nacrtati ogranicenja
+            crtanjeOgranicenja(jsonData.speed_limits, jsonData.distance);
+          }
+          //update height of speed limits -- nece trebati kad budemo brisali i iznova crtali ogranicenja svaki put
         }
       });
       nizZaTrku.push(tempCar);
-      // console.log(nizZaTrku);
     }
 
 

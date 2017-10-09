@@ -36,6 +36,25 @@ function brisanjeStaze(carid) {
   $('[data-carID='+carid+']').remove();
 }
 
+//TODO:
+// function crtanjeOgranicenja() {}
+// function brisanjeOgranicenja() {}
+// function crtanjeSemafora() {}
+// function brisanjeSemafora() {}
+
+function crtanjeOgranicenja(limits, dist) {   //<-- doraditi sa labelima
+  //should delete limits first
+  var pxpkm = 1000/dist; //counts length of each km in pixels
+  var limit = $('<div>').attr({'class': 'speedLimit'});
+  limit.css("height", $('.raceTracks').css('height'));
+  for (var i = 0; i < limits.length; i++) {
+    var l = limit.clone();
+    l.css("left", limits[i].position*pxpkm);
+    $(".singleTrack").append(l);
+  }
+}
+
+
 
 
 

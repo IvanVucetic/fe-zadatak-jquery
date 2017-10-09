@@ -40,16 +40,14 @@ li {
   text-align: center;
 }
 
-#markOne {
-  left: 100px;
+.speedLimit {
+  color: green;
+  position: absolute;
+  border-right: 1px solid green;
+  /*left i height dodati jQ*/
 }
 
-.speedLimit {
-  position: absolute;
-  left: 50px;
-  display: inline-block;
-  width: 5px;
-}
+
 
 .racer {
   display: inline-block;
