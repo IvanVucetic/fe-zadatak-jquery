@@ -20,7 +20,7 @@ function crtanjeStaze(carid, dist) {
   var racer = $('<div>').attr({'class': 'racer', 'id': carid});
   racer.html(carid);  // this will be replaced with image
   var distance = $('<div>').attr({'class': 'distance'}).append(
-                    $('<div>').attr({'class': 'label'}));
+      $('<div>').attr({'class': 'label'}));
   // racunanje duzina deonica, oznacavanje
   for (var i = 1; i<10; i++) {
     var d = distance.clone();
@@ -61,6 +61,28 @@ function brisanjeOgranicenja() {
   $(".speedLimit").remove();
 }
 
+
+function crtanjeSemafora(trafficLights, dist) {
+  brisanjeSemafora();
+
+  var pxpkm = 1000/dist; //counts length of each km in pixels
+  var light = $('<div>').attr({'class': 'trafficLight'});
+  light.css("height", $('.raceTracks').css('height'));
+  for (var i = 0; i < trafficLights.length; i++) {
+    var l = light.clone();
+    l.css("left", trafficLights[i].position*pxpkm);
+    l.data('duration', trafficLights[i].duration); // is there a better way to do this?
+    // Create appropriate elements
+    // var limitLabel = $('<div>').attr({'class': 'speedLimitLabel'}).html(l.data("speed"));
+    var lightHead = $('<div>').attr({'class': 'speedLimitLabel'})
+    // l.append(limitLabel);
+    $(".raceTracks").children(".singleRace").first().children(".singleTrack").append(l);
+  }
+}
+
+function brisanjeSemafora() {
+  $(".trafficLight").remove();
+}
 
 
 function brisiAuto(niz, carID) {
