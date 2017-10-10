@@ -56,10 +56,9 @@ var getJSON = function (inputStr) {
         success: function (jsonData) {
             window.data = jsonData;
             var niz = jsonData;
-
             var cars = niz.cars;
-
             var filtered = [];
+
             if (inputStr == "") {
                 filtered = cars;
             } else {
@@ -89,26 +88,29 @@ function getCarById(id) {
     return null;
 }
 
-// testing animation
+// ANIMATION
 $(document).on("click", '.racer', function () {
     var car = getCarById($(this).attr('id'));
     car.distance = 0;
     var conditions = [];
-    window.data.traffic_lights.forEach(function (light) {
-        conditions.push($.extend({}, light, {type: 'trafficLight'}))
-    });
-    window.data.speed_limits.forEach(function (limit) {
-        conditions.push($.extend({}, limit, {type: 'speedLimit'}))
+
+    $.map(window.data.traffic_lights, function(light, i){
+      light["type"] = 'trafficLight';
+      conditions.push(light);
     });
 
+    $.map(window.data.speed_limits, function(limit, i) {
+      limit["type"] = 'speedLimit';
+      conditions.push(limit);
+    });
 
     conditions.sort((a, b) => {
         return a.position - b.position
     });
-    conditions.push({type: 'speedLimit', speed: 0, position: window.data.distance});
-    console.log(conditions);
+    conditions.push({position: window.data.distance, speed: 0, type: 'speedLimit'});
+    // console.log(conditions); // <--obrisi kasnije
 
-
+    //Making road sections
     var pathParts = [];
     var currentSpeed = car.speed;
 
@@ -117,27 +119,27 @@ $(document).on("click", '.racer', function () {
 
         pathPart.speed = currentSpeed;
         pathPart.length = conditions[i].position - (conditions[i - 1] ? conditions[i - 1].position : 0);
-        pathPart.duration = (pathPart.length / currentSpeed) * 3600000;
+        pathPart.duration = (pathPart.length / currentSpeed) * 3600000; // in ms
         pathPart.endTime = pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime + pathPart.duration : pathPart.duration;
 
         pathParts.push(pathPart);
         if (conditions[i].type === 'speedLimit') {
-            currentSpeed = conditions[i].speed; // dodati i ogranicenje automobila
+            currentSpeed = conditions[i].speed; // menjati samo ako je sporije od moguce brzine automobila
         }
         else {
 
-            let lightChangesCount = Math.floor((pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime : 0) / conditions[i].duration);
-            let moduo = lightChangesCount % 2;  // da li je red ili green
-            let redLight = !moduo;
+            // let lightChangesCount = Math.floor((pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime : 0) / conditions[i].duration);
+            let lightChangesCount = pathParts[pathParts.length - 1].endTime / conditions[i].duration;
+            let redLight = (lightChangesCount % 2 ? true : false);
 
-            let moduo2 = (pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime : 0) % conditions[i].duration;
+            // let moduo2 = (pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime : 0) % conditions[i].duration;
+            var moduo = pathParts[pathParts.length - 1].endTime % conditions[i].duration;
 
             if (redLight) {
-                console.log('cekaj')
                 let pathPart = {};
                 pathPart.speed = 0;
                 pathPart.length = 0;
-                pathPart.duration = conditions[i].duration - moduo2;
+                pathPart.duration = conditions[i].duration - moduo;
                 pathPart.endTime = pathParts[pathParts.length - 1].endTime + pathPart.duration;
 
                 pathParts.push(pathPart);
@@ -145,38 +147,18 @@ $(document).on("click", '.racer', function () {
         }
     }
 
-    console.log(pathParts);
+    // Animating movement
     let distance = 0;
     for (let i = 0; i < pathParts.length; i++) {
         console.log(pathParts[i].speed)
-        distance += pathParts[i].length * 1000 / window.data.distance;
+        distance += pathParts[i].length * 1000 / window.data.distance; //move in px
         $(this).animate({
-            // left: pathParts[i].length * 1000 / window.data.distance
             left: distance
-        }, pathParts[i].duration / 50, "linear", function () {
-            // console.log(distance);
-
-            // $(this).css('left', distance);
+        }, pathParts[i].duration / 50, "linear", function () {  // <-- change 50 with value from "brzina animacije"
         })
-    }    ;
-
-    // $(this).animate({
-    //     left: 1000
-    // }, 5000, "linear", function (){
-    //
-    // })
-
+    };
 });
 
-// function run(runtime){
-//   // runtime.time +=10;
-//   // console.log(runtime.car.distance)
-//   var predjenaDistancaKm = runtime.car.speed * 100 / (1 * 60 * 60 * 1000));
-//   runtime.car.distance += predjenaDistancaKm ;
-//   $('#'+runtime.car.id).css('left',(1000/window.data.distance)* runtime.car.distance);
-//   // runtime
-//
-// }
 
 var nizZaTrku = [];
 
