@@ -80,17 +80,10 @@ var getJSON = function (inputStr) {
     });
 };
 
-function getCarById(id) {
-    for (var i = 0; i < window.nizZaTrku.length; i++) {
-        if (window.nizZaTrku[i].id == id)
-            return window.nizZaTrku[i];
-    }
-    return null;
-}
 
 // ANIMATION
-$(document).on("click", '.racer', function () {
-    var car = getCarById($(this).attr('id'));
+$(document).on('click', '#startRace', function (){
+  $.map(nizZaTrku, function(car, i){
     car.distance = 0;
     var conditions = [];
 
@@ -108,7 +101,6 @@ $(document).on("click", '.racer', function () {
         return a.position - b.position
     });
     conditions.push({position: window.data.distance, speed: 0, type: 'speedLimit'});
-    // console.log(conditions); // <--obrisi kasnije
 
     //Making road sections
     var pathParts = [];
@@ -127,12 +119,9 @@ $(document).on("click", '.racer', function () {
             currentSpeed = conditions[i].speed; // menjati samo ako je sporije od moguce brzine automobila
         }
         else {
-
-            // let lightChangesCount = Math.floor((pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime : 0) / conditions[i].duration);
             let lightChangesCount = pathParts[pathParts.length - 1].endTime / conditions[i].duration;
             let redLight = (lightChangesCount % 2 ? true : false);
 
-            // let moduo2 = (pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime : 0) % conditions[i].duration;
             var moduo = pathParts[pathParts.length - 1].endTime % conditions[i].duration;
 
             if (redLight) {
@@ -150,13 +139,15 @@ $(document).on("click", '.racer', function () {
     // Animating movement
     let distance = 0;
     for (let i = 0; i < pathParts.length; i++) {
-        console.log(pathParts[i].speed)
         distance += pathParts[i].length * 1000 / window.data.distance; //move in px
-        $(this).animate({
+        $("#"+car.id).animate({
             left: distance
         }, pathParts[i].duration / 50, "linear", function () {  // <-- change 50 with value from "brzina animacije"
         })
     };
+
+
+  });
 });
 
 
