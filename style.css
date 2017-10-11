@@ -1,14 +1,55 @@
+body {
+    font-size: 15px;
+    font-family: Arial;
+}
+
+
+input {
+    width: 400px;
+    height: 30px;
+    font-size: 15px;
+    background: white
+}
+
+button {
+    height: 30px;
+}
+
 .content {
     width: 1200px;
     margin: auto;
     margin-top: 0;
+    margin-bottom: 50px;
 }
 
 .header {
     position: absolute;
-    height: 70px;
+    top: 0;
+    left: 0;
+    height: 110px;
     width: 100%;
     background-color: #1875d8;
+}
+
+.header h1 {
+    color: white;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.searchField-container {
+    margin: 150px auto 70px;
+    text-align: center;
+    clear: right;
+}
+
+.searchField * {
+    vertical-align: middle;
+}
+
+.carList-container {
+    margin-bottom: 40px;
 }
 
 .cars-list {
@@ -65,15 +106,13 @@
     height: 100%;
 }
 
-.cell:hover .car-front-info{
+.cell:hover .car-front-info {
     transform: rotateX(180deg);
 }
 
-.cell:hover .car-back-info{
+.cell:hover .car-back-info {
     transform: rotateX(0deg);
 }
-
-
 
 .car-back-info {
     transform: rotateX(180deg);
@@ -84,24 +123,29 @@
     background-color: #1875d8;
     opacity: 0.9;
     position: absolute;
-    height: 100%;
-    width: 100%;
     top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
     padding: 40px 10px 0;
 }
 
-/*ul {*/
-/*list-style-type: none;*/
-/*}*/
+#race {
+    margin-bottom: 150px;
+    text-align: center;
+}
 
-/*li {*/
-/*border: 1px solid #dbe3e7;*/
-/*display: inline-block;*/
-/*margin: 0 12px 14px 0;*/
-/*padding: 25px;*/
-/*height: 160px;*/
-/*}*/
+.animation-buttons {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.animation-buttons input,
+.animation-buttons button {
+    vertical-align: middle;
+    margin-top: 10px;
+}
 
 .raceTracks {
     position: relative;
@@ -148,16 +192,18 @@
 }
 
 .speedLimitLabel {
-    height: 20px;
+    height: 40px;
     width: 40px;
     position: absolute;
     bottom: -20px;
-    left: -20px;
-    background-color: gray;
-    border: 0.5px solid black;
+    left: -18px;
+    background-color: white;
     box-sizing: border-box;
     text-align: center;
-    color: white;
+    color: black;
+    border: 3px solid gray;
+    border-radius: 50%;
+    line-height: 34px;
 }
 
 .trafficLight {
