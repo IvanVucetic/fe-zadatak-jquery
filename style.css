@@ -18,7 +18,6 @@ li {
   position: relative;
   border-right: dashed 3px white;
   box-sizing: border-box;
-  vertical-align: bottom;
 }
 
 .distance {
@@ -93,8 +92,11 @@ li {
   display: inline-block;
   height: 50px;
   width: 50px;
-  background-color: blue;
   position: relative;
   z-index: 2;
-  color: white; /*temporaru*/
+  perspective: 800px;
+  background-size: 50px;
+  background-position: center;
+  background-repeat: no-repeat;
+
 }

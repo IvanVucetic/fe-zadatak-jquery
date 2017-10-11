@@ -1,8 +1,3 @@
-// function clickedCar(carID) {    <--- ternutno nije potrebno
-//   nizZaTrku.push(carID);
-//   console.log(nizZaTrku);
-// }
-
 function alreadyAdded(carID, nzt) {
   var exists = false;
   for (var i=0; i < nzt.length; i++) {
@@ -13,12 +8,13 @@ function alreadyAdded(carID, nzt) {
   return exists;
 }
 
-
-function crtanjeStaze(carid, dist) {
+function crtanjeStaze(carid, dist, image) {
   var singleRace = $('<div>').attr({'class': 'singleRace', 'data-carID': carid});
   var singleTrack = $('<div>').attr({'class': 'singleTrack'});
+
   var racer = $('<div>').attr({'class': 'racer', 'id': carid});
-  racer.html(carid);  // this will be replaced with image
+  racer.css("background-image", 'url(' + image + ')');
+
   var distance = $('<div>').attr({'class': 'distance'}).append(
       $('<div>').attr({'class': 'label'}));
   // racunanje duzina deonica, oznacavanje
@@ -36,9 +32,6 @@ function brisanjeStaze(carid) {
   $('[data-carID='+carid+']').remove();
 }
 
-//TODO:
-// function crtanjeSemafora() {}
-// function brisanjeSemafora() {}
 
 function crtanjeOgranicenja(limits, dist) {   //<-- doraditi sa labelima
   brisanjeOgranicenja();
@@ -103,12 +96,12 @@ function gimmeMedal(rankingsArray, animation_speed) {
     return a.endTime - b.endTime;
   });
   setTimeout(function(){
-    $("#"+rankingsArray[0].id).html("gold");
+    $("#"+rankingsArray[0].id).css("background-color", "#D9A441");
   }, rankingsArray[0].endTime / animation_speed);
   setTimeout(function(){
-    $("#"+rankingsArray[1].id).html("silver");
+    $("#"+rankingsArray[1].id).css("background-color", "#A8A8A8");
   }, rankingsArray[1].endTime / animation_speed);
   setTimeout(function(){
-    $("#"+rankingsArray[2].id).html("bronze");
+    $("#"+rankingsArray[2].id).css("background-color", "#965A38");
   }, rankingsArray[2].endTime / animation_speed);
 }

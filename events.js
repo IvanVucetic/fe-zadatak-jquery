@@ -33,7 +33,8 @@ $(document).on("click", '.car', function (event) {
             method: "GET",
             success: function (jsonData) {
                 tempCar["speed"] = jsonData.cars[tempCar["id"] - 1]["speed"];
-                crtanjeStaze(tempCar["id"], jsonData.distance);
+                tempCar["image"] = jsonData.cars[tempCar["id"] - 1]["image"];
+                crtanjeStaze(tempCar["id"], jsonData.distance, tempCar["image"]);
                 crtanjeOgranicenja(jsonData.speed_limits, jsonData.distance);
                 $(".raceTracks :not(:first-child) .singleTrack .distance .label").remove();
                 crtanjeSemafora(jsonData.traffic_lights, jsonData.distance);
