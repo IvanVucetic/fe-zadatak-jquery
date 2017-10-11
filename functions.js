@@ -97,3 +97,18 @@ function changeLights(light_head_element, animation_speed) {  //, animation_spee
       $(light_head_element).toggleClass("redLight greenLight");
     }, d / animation_speed );  // / animation_speed
 }
+
+function gimmeMedal(rankingsArray, animation_speed) {
+  rankingsArray.sort(function(a,b){
+    return a.endTime - b.endTime;
+  });
+  setTimeout(function(){
+    $("#"+rankingsArray[0].id).html("gold");
+  }, rankingsArray[0].endTime / animation_speed);
+  setTimeout(function(){
+    $("#"+rankingsArray[1].id).html("silver");
+  }, rankingsArray[1].endTime / animation_speed);
+  setTimeout(function(){
+    $("#"+rankingsArray[2].id).html("bronze");
+  }, rankingsArray[2].endTime / animation_speed);
+}

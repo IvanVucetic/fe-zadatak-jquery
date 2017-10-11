@@ -82,80 +82,93 @@ var getJSON = function (inputStr) {
 // ANIMATION
 $(document).on('click', '#startRace', function (){
 
-  var animationSpeed = $("#animationSpeed").val();
+  if ($("#animationSpeed").val()) {
+    if (parseInt($("#animationSpeed").val()) > 0) {
 
-  // needs to go before animation to avoid doubling the call (or trippling...)
-  lightHeadElements = $(".lightHead");
-  lightelementcounter = 0;
-  for (var i = 0; i < lightHeadElements.length; i++) {
-    changeLights(lightHeadElements[i], animationSpeed);
-  }
+      var animationSpeed = $("#animationSpeed").val();
+      var rankings = [];
+      // needs to go before animation to avoid doubling the call (or trippling...)
+      lightHeadElements = $(".lightHead");
+      lightelementcounter = 0;
+      for (var i = 0; i < lightHeadElements.length; i++) {
+        changeLights(lightHeadElements[i], animationSpeed);
+      }
 
-  $.map(nizZaTrku, function(car, i){
-    car.distance = 0;
-    var conditions = [];
+      $.map(nizZaTrku, function(car, i){
+        car.distance = 0;
+        var conditions = [];
 
-    $.map(window.data.traffic_lights, function(light, i){
-      light["type"] = 'trafficLight';
-      conditions.push(light);
-    });
+        $.map(window.data.traffic_lights, function(light, i){
+          light["type"] = 'trafficLight';
+          conditions.push(light);
+        });
 
-    $.map(window.data.speed_limits, function(limit, i) {
-      limit["type"] = 'speedLimit';
-      conditions.push(limit);
-    });
+        $.map(window.data.speed_limits, function(limit, i) {
+          limit["type"] = 'speedLimit';
+          conditions.push(limit);
+        });
 
-    conditions.sort((a, b) => {
-        return a.position - b.position
-    });
-    conditions.push({position: window.data.distance, speed: 0, type: 'speedLimit'});
+        conditions.sort(function(a, b) {
+            return a.position - b.position
+        });
+        conditions.push({position: window.data.distance, speed: 0, type: 'speedLimit'});
 
-    //Making road sections
-    var pathParts = [];
-    var currentSpeed = car.speed;
+        //Making road sections
+        var pathParts = [];
+        var currentSpeed = car.speed;
 
-    for (let i = 0; i < conditions.length; i++) {
-        let pathPart = {};
+        for (let i = 0; i < conditions.length; i++) {
+            let pathPart = {};
 
-        pathPart.speed = currentSpeed;
-        pathPart.length = conditions[i].position - (conditions[i - 1] ? conditions[i - 1].position : 0);
-        pathPart.duration = (pathPart.length / currentSpeed) * 3600000; // in ms
-        pathPart.endTime = pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime + pathPart.duration : pathPart.duration;
+            pathPart.speed = currentSpeed;
+            pathPart.length = conditions[i].position - (conditions[i - 1] ? conditions[i - 1].position : 0);
+            pathPart.duration = (pathPart.length / currentSpeed) * 3600000; // in ms
+            pathPart.endTime = pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].endTime + pathPart.duration : pathPart.duration;
 
-        pathParts.push(pathPart);
-        if (conditions[i].type === 'speedLimit') {
-            currentSpeed = conditions[i].speed; // menjati samo ako je sporije od moguce brzine automobila
-        }
-        else {
-            let lightChangesCount = pathParts[pathParts.length - 1].endTime / conditions[i].duration;
-            let redLight = (lightChangesCount % 2 ? true : false);
+            pathParts.push(pathPart);
+            if (conditions[i].type === 'speedLimit') {
+                currentSpeed = conditions[i].speed; // menjati samo ako je sporije od moguce brzine automobila
+            }
+            else {
+                let lightChangesCount = pathParts[pathParts.length - 1].endTime / conditions[i].duration;
+                let redLight = (lightChangesCount % 2 ? true : false);
 
-            var moduo = pathParts[pathParts.length - 1].endTime % conditions[i].duration;
+                var moduo = pathParts[pathParts.length - 1].endTime % conditions[i].duration;
 
-            if (redLight) {
-                let pathPart = {};
-                pathPart.speed = 0;
-                pathPart.length = 0;
-                pathPart.duration = conditions[i].duration - moduo;
-                pathPart.endTime = pathParts[pathParts.length - 1].endTime + pathPart.duration;
+                if (redLight) {
+                    let pathPart = {};
+                    pathPart.speed = 0;
+                    pathPart.length = 0;
+                    pathPart.duration = conditions[i].duration - moduo;
+                    pathPart.endTime = pathParts[pathParts.length - 1].endTime + pathPart.duration;
 
-                pathParts.push(pathPart);
+                    pathParts.push(pathPart);
+                }
             }
         }
+
+        // Animating movement
+        let distance = 0;
+        for (let i = 0; i < pathParts.length; i++) {
+            distance += pathParts[i].length * 1000 / window.data.distance; //move in px
+            $("#"+car.id).animate({
+                left: distance
+            }, pathParts[i].duration / animationSpeed, "linear", function () {
+            })
+        };
+        rankings.push({"id" : car.id, "endTime": pathParts[pathParts.length - 1].endTime});
+
+      });
+      gimmeMedal(rankings, animationSpeed);
+
+    } else {
+      alert("Unesite ceo broj za brzinu animacije");
     }
-
-    // Animating movement
-    let distance = 0;
-    for (let i = 0; i < pathParts.length; i++) {
-        distance += pathParts[i].length * 1000 / window.data.distance; //move in px
-        $("#"+car.id).animate({
-            left: distance
-        }, pathParts[i].duration / animationSpeed, "linear", function () {  
-        })
-    };
+  } else {
+    alert("Obavezno uneti brzinu animacije");
+  }
 
 
-  });
 });
 
 
