@@ -1,8 +1,13 @@
+ul {
+  list-style-type: none;
+}
+
 li {
   border:1px solid #dbe3e7;
   display: inline-block;
   margin: 0 12px 14px 0;
 	padding: 25px;
+  height: 160px;
 }
 
 .raceTracks {
@@ -13,7 +18,9 @@ li {
   display: inline-block;
   width: 1000px;
   height: 50px;
-  background-color: silver;
+  background-image: url("https://www.sketchuptextureclub.com/public/texture_m/0043-asphalt-texture-seamless.jpg");
+  background-repeat: repeat;
+  background-size: 50px;
   margin-top: 25px;
   position: relative;
   border-right: dashed 3px white;

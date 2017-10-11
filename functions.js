@@ -105,3 +105,10 @@ function gimmeMedal(rankingsArray, animation_speed) {
     $("#"+rankingsArray[2].id).css("background-color", "#965A38");
   }, rankingsArray[2].endTime / animation_speed);
 }
+
+function getCarById(id) {
+    for (var i = 0; i < window.nizZaTrku.length; i++) {
+        if (window.nizZaTrku[i].id == id)
+            return window.nizZaTrku[i];
+    }
+}
