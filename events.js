@@ -6,8 +6,6 @@ $(".searchField-input").keyup(function () {
 
 // DRAW RACERS
 $(document).on("click", '.car', function (event) {
-    // unutar ovoga poziv da smestimo ogranicenja u globalni niz
-    // svaki put kad se odabere auto, dodaje se traka za njega, brisu se ogranicenja i iznova iscrtavaju
 
     var carid = $(this).data("id");
     //BRISANJE
@@ -83,6 +81,16 @@ var getJSON = function (inputStr) {
 
 // ANIMATION
 $(document).on('click', '#startRace', function (){
+
+  var animationSpeed = $("#animationSpeed").val();
+
+  // needs to go before animation to avoid doubling the call (or trippling...)
+  lightHeadElements = $(".lightHead");
+  lightelementcounter = 0;
+  for (var i = 0; i < lightHeadElements.length; i++) {
+    changeLights(lightHeadElements[i], animationSpeed);
+  }
+
   $.map(nizZaTrku, function(car, i){
     car.distance = 0;
     var conditions = [];
@@ -142,7 +150,7 @@ $(document).on('click', '#startRace', function (){
         distance += pathParts[i].length * 1000 / window.data.distance; //move in px
         $("#"+car.id).animate({
             left: distance
-        }, pathParts[i].duration / 50, "linear", function () {  // <-- change 50 with value from "brzina animacije"
+        }, pathParts[i].duration / animationSpeed, "linear", function () {  
         })
     };
 

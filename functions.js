@@ -71,11 +71,10 @@ function crtanjeSemafora(trafficLights, dist) {
   for (var i = 0; i < trafficLights.length; i++) {
     var l = light.clone();
     l.css("left", trafficLights[i].position*pxpkm);
-    l.data('duration', trafficLights[i].duration); // is there a better way to do this?
     // Create appropriate elements
-    // var limitLabel = $('<div>').attr({'class': 'speedLimitLabel'}).html(l.data("speed"));
-    var lightHead = $('<div>').attr({'class': 'speedLimitLabel'})
-    // l.append(limitLabel);
+    var lightHead = $('<div>').addClass('lightHead').addClass('redLight');
+    lightHead.data('duration', trafficLights[i].duration); // is there a better way to do this?
+    l.append(lightHead);
     $(".raceTracks").children(".singleRace").first().children(".singleTrack").append(l);
   }
 }
@@ -90,4 +89,11 @@ function brisiAuto(niz, carID) {
     return e.id != carID;
   });
   return niz;
+}
+
+function changeLights(light_head_element, animation_speed) {  //, animation_speed
+    d = $(light_head_element).data("duration");
+    setInterval(function(){
+      $(light_head_element).toggleClass("redLight greenLight");
+    }, d / animation_speed );  // / animation_speed
 }
