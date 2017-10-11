@@ -98,12 +98,16 @@ function gimmeMedal(rankingsArray, animation_speed) {
   setTimeout(function(){
     $("#"+rankingsArray[0].id).css("background-color", "#D9A441");
   }, rankingsArray[0].endTime / animation_speed);
-  setTimeout(function(){
-    $("#"+rankingsArray[1].id).css("background-color", "#A8A8A8");
-  }, rankingsArray[1].endTime / animation_speed);
-  setTimeout(function(){
-    $("#"+rankingsArray[2].id).css("background-color", "#965A38");
-  }, rankingsArray[2].endTime / animation_speed);
+  if(rankingsArray[1]) {
+      setTimeout(function () {
+          $("#" + rankingsArray[1].id).css("background-color", "#A8A8A8");
+      }, rankingsArray[1].endTime / animation_speed);
+  };
+  if(rankingsArray[2]) {
+      setTimeout(function () {
+          $("#" + rankingsArray[2].id).css("background-color", "#965A38");
+      }, rankingsArray[2].endTime / animation_speed);
+  };
 }
 
 function getCarById(id) {

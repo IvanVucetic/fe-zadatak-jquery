@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Ivan Vucetic - HTEC internship candidate</title>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title>Ivan Vucetic - HTEC internship candidate</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <section class="searchField-container">
-    <form class="searchField">
-      <input type="search" class="searchField-input">
-      <button type="submit">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </button>
-    </form>
-  </section>
+<div class="content">
+    <section class="header">
+        <title>HTEC car racer</title>
+    </section>
 
-  <section>
-    <ul class="carsList">
+    <section class="searchField-container">
+        <form class="searchField">
+            <input type="search" class="searchField-input">
+            <button type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </form>
+    </section>
 
-    </ul>
-  </section>
+    <section>
+        <div id="carsList" class="cars-list">
 
-  <section id="race">
+        </div>
+    </section>
 
-    Brzina animacije:
-    <input type="text" id="animationSpeed" placeholder="1, 10, 72..."><br>
-    <button id="startRace" value="Start">Start</button><br>
+    <section id="race">
 
-    <div class="raceTracks">
-    </div>
-  </section>
+        Brzina animacije:
+        <input type="text" id="animationSpeed" placeholder="1, 10, 72..."><br>
+        <button id="startRace" value="Start">Start</button>
+        <br>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script type="text/javascript" src="functions.js"></script>
-  <script type="text/javascript" src="events.js"></script>
+        <div class="raceTracks">
+        </div>
+    </section>
+</div>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="functions.js"></script>
+<script type="text/javascript" src="events.js"></script>
 </body>
 </html>
