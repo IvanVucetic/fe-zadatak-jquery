@@ -1,6 +1,6 @@
 body {
     font-size: 15px;
-    font-family: Arial;
+    font-family: Helvetica, Arial, Sans-Serif;
 }
 
 
@@ -28,7 +28,7 @@ button {
     left: 0;
     height: 110px;
     width: 100%;
-    background-color: #1875d8;
+    background-color: #3EA4D2;
 }
 
 .header h1 {
@@ -120,7 +120,7 @@ button {
 
 .overlay {
     color: white;
-    background-color: #1875d8;
+    background-color: #3EA4D2;
     opacity: 0.9;
     position: absolute;
     top: 0;
@@ -154,7 +154,7 @@ button {
 .singleTrack {
     display: inline-block;
     width: 1000px;
-    height: 50px;
+    height: 70px;
     background-image: url("https://www.sketchuptextureclub.com/public/texture_m/0043-asphalt-texture-seamless.jpg");
     background-repeat: repeat;
     background-size: 50px;
@@ -167,7 +167,7 @@ button {
 .distance {
     color: red;
     position: absolute;
-    height: 50px;
+    height: 70px;
     border-right: 1px solid red;
 }
 
@@ -236,8 +236,8 @@ button {
 
 .racer {
     display: inline-block;
-    height: 50px;
-    width: 50px;
+    height: 70px;
+    width: 70px;
     position: relative;
     z-index: 2;
     perspective: 800px;
