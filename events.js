@@ -194,3 +194,8 @@ $(document).on('click', '#startRace', function () {
 var nizZaTrku = [];
 
 getJSON("");
+
+
+// - prevent racers from being added after the "start" is clicked
+// - make traffic lights stop after the race is finished
+// - disable "start" button after the race starts, or use it to reset the race
